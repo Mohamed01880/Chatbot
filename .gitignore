@@ -1,0 +1,22 @@
+# Environment variables and credentials
+.env
+.env.*
+!.env.example
+
+# Python generated files
+__pycache__/
+*.py[cod]
+*.pyd
+
+# Local data and logs
+logs/
+*.db
+*.sqlite
+*.sqlite3
+
+# Local virtual environments and tooling
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/

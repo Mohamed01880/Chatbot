@@ -1,0 +1,361 @@
+{
+ "answerable": [
+  {
+   "question": "Combien de machines Komax y a-t-il ?",
+   "type": "direct",
+   "expected": [
+    [
+     "ZONE-P1-COUPE",
+     "quoi sert"
+    ]
+   ]
+  },
+  {
+   "question": "À quoi sert la zone de coupe ?",
+   "type": "direct",
+   "expected": [
+    [
+     "ZONE-P1-COUPE",
+     "quoi sert"
+    ]
+   ]
+  },
+  {
+   "question": "Qu'est-ce qu'on fait dans la zone de préparation ?",
+   "type": "direct",
+   "expected": [
+    [
+     "ZONE-P2-PREP",
+     "Opérations"
+    ],
+    [
+     "ZONE-P2-PREP",
+     "quoi sert"
+    ]
+   ]
+  },
+  {
+   "question": "C'est quoi le torsadage ?",
+   "type": "direct",
+   "expected": [
+    [
+     "ZONE-P2-PREP",
+     "Opérations"
+    ]
+   ]
+  },
+  {
+   "question": "Où se fait l'étamage ?",
+   "type": "indirecte",
+   "expected": [
+    [
+     "ZONE-P2-PREP",
+     "Opérations"
+    ]
+   ]
+  },
+  {
+   "question": "Sur quoi assemble-t-on les câbles longs ?",
+   "type": "indirecte",
+   "expected": [
+    [
+     "ZONE-P3-ASSEMBLAGE",
+     "Supports"
+    ]
+   ]
+  },
+  {
+   "question": "Qu'est-ce qu'un carrousel ?",
+   "type": "direct",
+   "expected": [
+    [
+     "ZONE-P3-ASSEMBLAGE",
+     "Supports"
+    ]
+   ]
+  },
+  {
+   "question": "Comment apprend-on l'assemblage ?",
+   "type": "indirecte",
+   "expected": [
+    [
+     "ZONE-P3-ASSEMBLAGE",
+     "Comment on apprend"
+    ]
+   ]
+  },
+  {
+   "question": "Quelles sont les opérations d'assemblage ?",
+   "type": "direct",
+   "expected": [
+    [
+     "ZONE-P3-ASSEMBLAGE",
+     "Opérations"
+    ]
+   ]
+  },
+  {
+   "question": "Qu'est-ce qu'une réglette ?",
+   "type": "direct",
+   "expected": [
+    [
+     "ZONE-P3-ASSEMBLAGE",
+     "Opérations"
+    ],
+    [
+     "ZONE-P3-ASSEMBLAGE",
+     "Vocabulaire"
+    ]
+   ]
+  },
+  {
+   "question": "Comment vérifie-t-on l'étanchéité des boîtiers ?",
+   "type": "indirecte",
+   "expected": [
+    [
+     "ZONE-CTRL",
+     "postes de contrôle"
+    ]
+   ]
+  },
+  {
+   "question": "Qu'est-ce que la contention ?",
+   "type": "direct",
+   "expected": [
+    [
+     "ZONE-CTRL",
+     "postes de contrôle"
+    ]
+   ]
+  },
+  {
+   "question": "Que fait le poste Firewall ?",
+   "type": "direct",
+   "expected": [
+    [
+     "ZONE-CTRL",
+     "postes de contrôle"
+    ]
+   ]
+  },
+  {
+   "question": "Que se passe-t-il juste avant l'envoi au client ?",
+   "type": "indirecte",
+   "expected": [
+    [
+     "ZONE-CTRL",
+     "postes de contrôle"
+    ],
+    [
+     "ZONE-MAG-EXP",
+     "Étapes"
+    ]
+   ]
+  },
+  {
+   "question": "Comment emballer les faisceaux ?",
+   "type": "direct",
+   "expected": [
+    [
+     "ZONE-MAG-EXP",
+     "Étapes"
+    ]
+   ]
+  },
+  {
+   "question": "Comment sont chargés les camions ?",
+   "type": "indirecte",
+   "expected": [
+    [
+     "ZONE-MAG-EXP",
+     "Étapes"
+    ]
+   ]
+  },
+  {
+   "question": "Combien de personnes travaillent au magasin d'import ?",
+   "type": "direct",
+   "expected": [
+    [
+     "ZONE-MAG-IMP",
+     "Organisation"
+    ]
+   ]
+  },
+  {
+   "question": "Avec quoi déplace-t-on les commandes dans le magasin ?",
+   "type": "indirecte",
+   "expected": [
+    [
+     "ZONE-MAG-IMP",
+     "Organisation"
+    ]
+   ]
+  },
+  {
+   "question": "Quelles sont les phases de la formation ?",
+   "type": "direct",
+   "expected": [
+    [
+     "PROC-INTEGRATION",
+     "phases"
+    ]
+   ]
+  },
+  {
+   "question": "Que se passe-t-il le premier jour ?",
+   "type": "indirecte",
+   "expected": [
+    [
+     "PROC-INTEGRATION",
+     "phases"
+    ]
+   ]
+  },
+  {
+   "question": "Qui m'accueille à mon arrivée ?",
+   "type": "indirecte",
+   "expected": [
+    [
+     "PROC-INTEGRATION",
+     "phases"
+    ]
+   ]
+  },
+  {
+   "question": "Comment serai-je évalué à la fin de la formation ?",
+   "type": "indirecte",
+   "expected": [
+    [
+     "PROC-INTEGRATION",
+     "phases"
+    ]
+   ]
+  },
+  {
+   "question": "Que signifie Seiton ?",
+   "type": "direct",
+   "expected": [
+    [
+     "PROC-INTEGRATION",
+     "5S"
+    ]
+   ]
+  },
+  {
+   "question": "C'est quoi les 5S ?",
+   "type": "direct",
+   "expected": [
+    [
+     "PROC-INTEGRATION",
+     "5S"
+    ]
+   ]
+  },
+  {
+   "question": "Comment apprend-on à utiliser les machines Komax ?",
+   "type": "indirecte",
+   "expected": [
+    [
+     "ZONE-P1-COUPE",
+     "Utilisation de base"
+    ],
+    [
+     "PROC-INTEGRATION",
+     "Phase 3"
+    ]
+   ]
+  },
+  {
+   "question": "Dans quel ordre passe le produit dans l'usine ?",
+   "type": "indirecte",
+   "expected": [
+    [
+     "PROC-INTEGRATION",
+     "flux"
+    ]
+   ]
+  },
+  {
+   "question": "Je me suis blessé à la main, que faire ?",
+   "type": "indirecte",
+   "expected": [
+    [
+     "SECU-GENERALE",
+     "accident"
+    ]
+   ]
+  },
+  {
+   "question": "C'est quoi un fusible ?",
+   "type": "direct",
+   "expected": [
+    [
+     "ZONE-CTRL",
+     "Explication simple"
+    ],
+    [
+     "GLOSSAIRE",
+     "Les bases"
+    ],
+    [
+     "ZONE-CTRL",
+     "Vocabulaire"
+    ]
+   ]
+  },
+  {
+   "question": "Comment lire le plan du faisceau ?",
+   "type": "indirecte",
+   "expected": [
+    [
+     "ZONE-P3-ASSEMBLAGE",
+     "Explication simple"
+    ],
+    [
+     "ZONE-P3-ASSEMBLAGE",
+     "Comment on apprend"
+    ]
+   ]
+  },
+  {
+   "question": "Que faire si une machine Komax affiche une alarme ?",
+   "type": "direct",
+   "expected": [
+    [
+     "ZONE-P1-COUPE",
+     "Problèmes fréquents"
+    ]
+   ]
+  },
+  {
+   "question": "Que faire si un faisceau est non conforme ?",
+   "type": "direct",
+   "expected": [
+    [
+     "ZONE-CTRL",
+     "Si un faisceau"
+    ]
+   ]
+  },
+  {
+   "question": "Quelles sont les règles de sécurité avec les lames ?",
+   "type": "direct",
+   "expected": [
+    [
+     "ZONE-P1-COUPE",
+     "Problèmes fréquents"
+    ],
+    [
+     "SECU-GENERALE",
+     "consignation"
+    ]
+   ]
+  }
+ ],
+ "no_answer": [
+  "Quels EPI sont obligatoires en zone de coupe ?",
+  "Quel est le salaire du PDG ?",
+  "Combien de jours de congé ai-je par an ?"
+ ]
+}

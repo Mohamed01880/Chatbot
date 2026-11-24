@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portail d'Intégration — Usine Faisceaux de Câbles Automobile</title>
+  <meta name="description" content="Plateforme d'intégration et formateur virtuel intelligent pour les nouveaux employés d'usine de câblage automobile.">
+
+  <!-- Google Fonts: Inter & Outfit & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Feuille de styles personnalisée -->
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <!-- ======================================================================
+       BARRE DE NAVIGATION PRINCIPALE
+       ====================================================================== -->
+  <header class="main-nav">
+    <a href="#home" class="nav-brand" id="nav-brand">
+      <div class="brand-icon">⚡</div>
+      <div class="brand-info">
+        <span class="brand-title">Câblage Auto</span>
+        <span class="brand-sub">Portail d'Intégration</span>
+      </div>
+    </a>
+
+    <!-- Liens d'onglets (affichés si connecté) -->
+    <nav class="nav-links" id="nav-links" style="display: none;">
+      <button class="nav-item active" data-view="home" id="nav-btn-home">
+        <span>🏠</span> Accueil
+      </button>
+      <button class="nav-item" data-view="chat" id="nav-btn-chat">
+        <span>🤖</span> Assistant IA
+      </button>
+    </nav>
+
+    <!-- Actions Utilisateur & Préférences -->
+    <div class="nav-actions">
+      <!-- Badge profil connecté -->
+      <div class="user-pill" id="user-pill" style="display: none;">
+        <div class="user-pill-avatar" id="user-pill-avatar">OP</div>
+        <div class="user-pill-info">
+          <span class="user-pill-name" id="user-pill-name">Employé</span>
+          <span class="user-pill-role" id="user-pill-role">Poste P1</span>
+        </div>
+      </div>
+
+      <!-- Bascule Thème Sombre / Clair -->
+      <button class="icon-btn" id="btn-toggle-theme" title="Changer de thème">
+        <span id="theme-icon">☀️</span>
+      </button>
+
+      <!-- Bouton Déconnexion -->
+      <button class="icon-btn" id="btn-logout" title="Déconnexion" style="color: var(--danger);">
+        <span>🚪</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       CONTENEUR PRINCIPAL DES VUES
+       ====================================================================== -->
+  <main class="view-container">
+
+    <!-- ====================================================================
+         VUE 1 : PAGE DE LOGIN (CONNEXION & BADGE OPÉRATEUR)
+         ==================================================================== -->
+    <section id="view-login" class="app-view active">
+      <div class="login-screen">
+        <div class="login-grid">
+
+          <!-- Formulaire d'Authentification (Connexion / Inscription) -->
+          <div class="login-form-side">
+            <div class="login-header">
+              <div class="login-meta-row">
+                <span class="login-tag">🔐 Portail Intégration Usine</span>
+                <span class="db-status-pill" id="db-status-pill" title="Statut de la base PostgreSQL">
+                  <span class="db-dot"></span> <span id="db-status-text">PostgreSQL</span>
+                </span>
+              </div>
+              <h1 class="login-title" id="auth-title">Connexion Opérateur</h1>
+              <p class="login-desc" id="auth-desc">Authentifiez-vous avec votre matricule ou inscrivez un nouvel employé/client dans PostgreSQL.</p>
+            </div>
+
+            <!-- Onglets Connexion / Inscription -->
+            <div class="auth-tabs" role="tablist">
+              <button type="button" class="auth-tab active" id="tab-login" data-tab="login">
+                <span>🔑</span> Connexion
+              </button>
+              <button type="button" class="auth-tab" id="tab-signup" data-tab="signup">
+                <span>📝</span> Inscription
+              </button>
+            </div>
+
+            <!-- Formulaire 1 : Connexion -->
+            <form id="login-form" class="auth-form-panel active">
+              <div class="form-group">
+                <label for="login-matricule" class="form-label" data-i18n-key="Matricule Employé">Matricule Employé</label>
+                <input type="text" id="login-matricule" class="form-input" placeholder="Ex: OP-2026-104" required autocomplete="username">
+              </div>
+
+              <div class="form-group">
+                <label for="login-password" class="form-label">Mot de passe</label>
+                <div class="password-input-wrap">
+                  <input type="password" id="login-password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+                  <button type="button" class="btn-toggle-pwd" data-target="login-password" title="Afficher/masquer">👁️</button>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-primary" id="btn-submit-login">
+                <span>Accéder au Portail</span>
+                <span>➔</span>
+              </button>
+
+              <div class="auth-switch-prompt">
+                <span>Nouveau collaborateur ou client ?</span>
+                <button type="button" class="link-switch-auth" id="btn-goto-signup">Créer un compte</button>
+              </div>
+
+              <!-- Profils Rapides Démo -->
+              <div class="quick-profiles-label">Connexion rapide démo (PostgreSQL) :</div>
+              <div class="quick-profiles-grid">
+                <button type="button" class="btn-quick-profile" data-profile="amine">
+                  <span>✂️</span> <strong>Amine</strong> (P1 Coupe)
+                </button>
+                <button type="button" class="btn-quick-profile" data-profile="fatima">
+                  <span>⚡</span> <strong>Fatima</strong> (P2 Sertissage)
+                </button>
+                <button type="button" class="btn-quick-profile" data-profile="youssef">
+                  <span>🧩</span> <strong>Youssef</strong> (P3 Planche)
+                </button>
+                <button type="button" class="btn-quick-profile" data-profile="sara">
+                  <span>🌱</span> <strong>Sara</strong> (Nouvelle)
+                </button>
+              </div>
+            </form>
+
+            <!-- Formulaire 2 : Inscription (Nouveau Client / Collaborateur) -->
+            <form id="signup-form" class="auth-form-panel">
+              <div class="form-group">
+                <label for="signup-name" class="form-label">Nom et Prénom</label>
+                <input type="text" id="signup-name" class="form-input" placeholder="Ex: Amine El Mansouri" required autocomplete="name">
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="signup-matricule" class="form-label">Matricule Employé / Identifiant</label>
+                  <input type="text" id="signup-matricule" class="form-input" placeholder="Ex: OP-2026-555" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                  <label for="signup-email" class="form-label">Email <small class="text-dim">(optionnel)</small></label>
+                  <input type="email" id="signup-email" class="form-input" placeholder="contact@auto-harness.local" autocomplete="email">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="signup-password" class="form-label">Mot de passe</label>
+                <div class="password-input-wrap">
+                  <input type="password" id="signup-password" class="form-input" placeholder="Minimum 4 caractères" required minlength="4" autocomplete="new-password">
+                  <button type="button" class="btn-toggle-pwd" data-target="signup-password" title="Afficher/masquer">👁️</button>
+                </div>
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="signup-role" class="form-label">Poste d'affectation</label>
+                  <select id="signup-role" class="form-select">
+                    <option value="P1 - Coupe & Dénudage">Zone Coupe (Poste P1)</option>
+                    <option value="P2 - Préparation & Sertissage">Zone Préparation & Sertissage (Poste P2)</option>
+                    <option value="P3 - Assemblage & Câblage">Zone Assemblage & Planches (Poste P3)</option>
+                    <option value="Contrôle Qualité & Test">Contrôle Qualité & Test Électrique</option>
+                    <option value="Nouvel Arrivant (Tronc Commun)" selected>Nouvel Arrivant (Tronc Commun)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="signup-lang" class="form-label">Langue</label>
+                  <select id="signup-lang" class="form-select">
+                    <option value="fr" selected>Français</option>
+                    <option value="ar">Arabe / Darija (الدارجة)</option>
+                  </select>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-primary" id="btn-submit-signup">
+                <span>Créer mon compte dans PostgreSQL</span>
+                <span>➔</span>
+              </button>
+
+              <div class="auth-switch-prompt">
+                <span>Vous avez déjà un compte ?</span>
+                <button type="button" class="link-switch-auth" id="btn-goto-login">Se connecter</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Badge Virtuel d'Usine -->
+          <div class="login-badge-side">
+            <div class="badge-wrapper">
+              <div class="virtual-badge">
+                <div class="badge-clip"></div>
+                <div class="badge-top">
+                  <span class="badge-corp">AUTO-HARNESS FACTORY</span>
+                  <div class="badge-chip"></div>
+                </div>
+                <div class="badge-avatar-wrap">
+                  <div class="badge-avatar" id="badge-avatar-preview">OP</div>
+                </div>
+                <div class="badge-body">
+                  <h2 class="badge-name" id="badge-name-preview">Nouvel Employé</h2>
+                  <span class="badge-role-tag" id="badge-role-preview">Zone Coupe (Poste P1)</span>
+                  <div class="badge-id" id="badge-id-preview">ID: OP-2026-000</div>
+                </div>
+                <div class="badge-footer">
+                  <span class="barcode-sim">|||| | | ||||| |||</span>
+                  <span class="badge-security-stamp">ACCÈS VALIDE</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         VUE 2 : PAGE D'ACCUEIL (TABLEAU DE BORD D'INTÉGRATION)
+         ==================================================================== -->
+    <section id="view-home" class="app-view">
+      <div class="home-container">
+
+        <!-- Bannière d'Accueil & Bienvenue -->
+        <div class="home-hero">
+          <div class="hero-content">
+            <div class="hero-left">
+              <div class="hero-welcome-badge">
+                <span>✨</span> Session active
+              </div>
+              <h1 class="hero-title">
+                Bonjour, <span class="highlight" id="hero-user-name">Collègue</span> !
+              </h1>
+              <p class="hero-desc" id="hero-user-role">
+                Affectation : Usine Faisceaux de Câbles Automobiles.
+              </p>
+              <div class="hero-actions">
+                <a href="#chat" class="btn-hero-chat">
+                  <span>🤖</span>
+                  <span>Ouvrir l'Assistant Formateur IA</span>
+                </a>
+                <a href="#modules-list" class="btn-secondary">
+                  <span>📚</span>
+                  <span>Consulter les Fiches Métier</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Suivi du Parcours d'Intégration (4 Phases) -->
+        <div class="onboarding-tracker">
+          <div class="tracker-header">
+            <h2 class="tracker-title">
+              <span>🎯</span> Votre Parcours d'Intégration
+            </h2>
+            <span class="tracker-badge" id="tracker-percent">65% complété</span>
+          </div>
+          <div class="tracker-bar-wrap">
+            <div class="tracker-bar-fill" id="tracker-bar-fill"></div>
+          </div>
+          <div class="tracker-steps">
+            <div class="step-card completed">
+              <span class="step-icon">✅</span>
+              <div class="step-info">
+                <span class="step-num">Phase 1</span>
+                <span class="step-name">Accueil RH & Histoire</span>
+              </div>
+            </div>
+            <div class="step-card completed">
+              <span class="step-icon">✅</span>
+              <div class="step-info">
+                <span class="step-num">Phase 2</span>
+                <span class="step-name">Sécurité & 5S</span>
+              </div>
+            </div>
+            <div class="step-card current">
+              <span class="step-icon">⚙️</span>
+              <div class="step-info">
+                <span class="step-num">Phase 3 (En cours)</span>
+                <span class="step-name">Formation Production</span>
+              </div>
+            </div>
+            <div class="step-card pending">
+              <span class="step-icon">⏳</span>
+              <div class="step-info">
+                <span class="step-num">Phase 4</span>
+                <span class="step-name">Évaluation & Validation</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Barre de Recherche Intelligente vers le Formateur IA -->
+        <div class="quick-search-box">
+          <div class="search-input-wrap">
+            <span>🔍</span>
+            <form id="home-search-form" style="display: flex; flex: 1;">
+              <input type="text" id="home-search-input" class="search-input" placeholder="Posez une question au formateur (ex: Comment faire un sertissage ? Quels EPI ?)…" autocomplete="off">
+            </form>
+          </div>
+          <button type="submit" form="home-search-form" class="search-btn">
+            <span>Demander au Formateur</span> ➔
+          </button>
+        </div>
+
+        <!-- Grille des Modules & Zones de l'Usine -->
+        <div id="modules-list" class="section-heading">
+          <div>
+            <h2 class="section-title">Zones de l'Usine & Fiches de Formation</h2>
+            <p class="section-sub">Explorez les postes de travail et posez des questions ciblées au formateur.</p>
+          </div>
+        </div>
+
+        <div class="modules-grid">
+
+          <!-- Module 1 : Sécurité & EPI -->
+          <div class="module-card" data-query="Quels sont les EPI obligatoires et les règles de sécurité vitales ?">
+            <div class="module-top">
+              <div class="module-icon" style="color: #ef4444;">🦺</div>
+              <span class="module-tag">Priorité 1</span>
+            </div>
+            <h3 class="module-title">Sécurité Générale & EPI</h3>
+            <p class="module-desc">Équipements de protection obligatoire, arrêt d'urgence coup-de-poing, gestes de secours en cas d'accident ou de coupure.</p>
+            <div class="module-meta">
+              <span>9 fiches disponibles</span>
+              <button class="module-btn-ask">Interroger le formateur ➔</button>
+            </div>
+          </div>
+
+          <!-- Module 2 : Zone Coupe P1 -->
+          <div class="module-card" data-query="Explique-moi le poste P1 zone de coupe et les machines automatiques">
+            <div class="module-top">
+              <div class="module-icon" style="color: #3b82f6;">✂️</div>
+              <span class="module-tag">Poste P1</span>
+            </div>
+            <h3 class="module-title">Zone Coupe & Dénudage</h3>
+            <p class="module-desc">Machines automatiques Komax, déroulage des bobines, coupe à longueur exacte, dénudage des extrémités et règles de sécurité.</p>
+            <div class="module-meta">
+              <span>Machines Komax</span>
+              <button class="module-btn-ask">Interroger le formateur ➔</button>
+            </div>
+          </div>
+
+          <!-- Module 3 : Zone Préparation P2 -->
+          <div class="module-card" data-query="Explique-moi le sertissage et la zone de préparation P2">
+            <div class="module-top">
+              <div class="module-icon" style="color: #f59e0b;">⚡</div>
+              <span class="module-tag">Poste P2</span>
+            </div>
+            <h3 class="module-title">Zone Préparation & Sertissage</h3>
+            <p class="module-desc">Sertissage mécanique des cosses, gaines thermorétractables au pistolet chauffant, soudure par ultrasons et test d'arrachement.</p>
+            <div class="module-meta">
+              <span>Sertissage & Cosses</span>
+              <button class="module-btn-ask">Interroger le formateur ➔</button>
+            </div>
+          </div>
+
+          <!-- Module 4 : Zone Assemblage P3 -->
+          <div class="module-card" data-query="Comment fonctionne la zone assemblage P3 et les planches rotatives ?">
+            <div class="module-top">
+              <div class="module-icon" style="color: #10b981;">🧩</div>
+              <span class="module-tag">Poste P3</span>
+            </div>
+            <h3 class="module-title">Zone Assemblage & Câblage</h3>
+            <p class="module-desc">Planches de pose rotatives avec gabarits colorés, encliquetage des connecteurs, pose du ruban adhésif et clips de fixation.</p>
+            <div class="module-meta">
+              <span>Planches rotatives</span>
+              <button class="module-btn-ask">Interroger le formateur ➔</button>
+            </div>
+          </div>
+
+          <!-- Module 5 : Zone Contrôle Qualité -->
+          <div class="module-card" data-query="Comment se déroule le contrôle qualité et le test électrique d'un faisceau ?">
+            <div class="module-top">
+              <div class="module-icon" style="color: #06b6d4;">🔬</div>
+              <span class="module-tag">Contrôle</span>
+            </div>
+            <h3 class="module-title">Contrôle Qualité & Test Électrique</h3>
+            <p class="module-desc">Test de continuité sur tables électroniques, détection des inversions de fils et contrôle visuel de l'étanchéité.</p>
+            <div class="module-meta">
+              <span>Continuité & Sécurité</span>
+              <button class="module-btn-ask">Interroger le formateur ➔</button>
+            </div>
+          </div>
+
+          <!-- Module 6 : Glossaire & 5S -->
+          <div class="module-card" data-query="Quels sont les termes techniques importants et la méthode 5S ?">
+            <div class="module-top">
+              <div class="module-icon" style="color: #8b5cf6;">📖</div>
+              <span class="module-tag">Méthode</span>
+            </div>
+            <h3 class="module-title">Glossaire Technique & 5S</h3>
+            <p class="module-desc">Lexique complet bilingue français / arabe / darija (sertissage, toron, cosse) et les 5 piliers du rangement de l'atelier.</p>
+            <div class="module-meta">
+              <span>Lexique Bilingue</span>
+              <button class="module-btn-ask">Interroger le formateur ➔</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Section Questions Fréquentes (FAQ) -->
+        <div class="faq-section">
+          <div class="section-heading">
+            <div>
+              <h2 class="section-title">Questions fréquentes des nouveaux employés</h2>
+              <p class="section-sub">Cliquez pour obtenir immédiatement l'explication du formateur.</p>
+            </div>
+          </div>
+          <div class="faq-chips-grid">
+            <button class="faq-chip" data-question="Quels sont les EPI obligatoires dès que j'entre dans l'usine ?">
+              🦺 Quels sont les EPI obligatoires ?
+            </button>
+            <button class="faq-chip" data-question="C'est quoi la différence entre le poste P1, P2 et P3 ?">
+              🏭 Différence entre les postes P1, P2 et P3 ?
+            </button>
+            <button class="faq-chip" data-question="Comment savoir si un sertissage est bien réalisé ?">
+              🔧 Comment réussir un bon sertissage ?
+            </button>
+            <button class="faq-chip" data-question="Que dois-je faire immédiatement en cas de blessure ou accident ?">
+              🚨 Que faire en cas de blessure ou accident ?
+            </button>
+            <button class="faq-chip" data-question="Explique-moi les étapes de la méthode 5S en usine.">
+              🧹 C'est quoi la méthode 5S ?
+            </button>
+            <button class="faq-chip" data-question="Quelles sont les 4 phases de mon parcours d'intégration ?">
+              📅 Quelles sont les 4 phases de ma formation ?
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         VUE 3 : CHATBOT ASSISTANT DE FORMATION
+         ==================================================================== -->
+    <section id="view-chat" class="app-view">
+      <div class="chat-screen">
+        <div class="chat-panel">
+
+          <!-- Entête de l'Assistant -->
+          <div class="chat-header">
+            <div class="chat-assistant-info">
+              <div class="chat-assistant-avatar">🤖</div>
+              <div>
+                <h2 class="chat-assistant-title">Formateur Virtuel d'Usine</h2>
+                <div class="chat-assistant-status">
+                  <span class="status-dot"></span>
+                  <span id="chat-status-text">En ligne (Prêt)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="chat-header-actions">
+              <label class="sources-toggle-label">
+                <input type="checkbox" id="toggle-sources">
+                <span>Afficher sources</span>
+              </label>
+
+              <button class="icon-btn" id="btn-clear-chat" title="Effacer l'historique">
+                <span>🗑️</span>
+              </button>
+
+              <a href="#home" class="icon-btn" title="Retour à l'accueil" style="text-decoration: none;">
+                <span>✕</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Flux des Messages -->
+          <div class="chat-messages" id="chat-messages">
+            <div class="msg-row assistant">
+              <div class="msg-avatar">🤖</div>
+              <div class="msg-bubble-wrap">
+                <div class="msg-bubble">
+                  Bonjour ! Je suis votre <strong>Formateur Virtuel</strong> pour l'usine de faisceaux de câbles automobiles. 🚗⚡<br><br>
+                  Je suis là pour vous accompagner pas à pas. Posez-moi vos questions sur votre poste de travail (<strong>P1 Coupe</strong>, <strong>P2 Sertissage</strong>, <strong>P3 Assemblage</strong>), les règles de sécurité ou les termes techniques.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Suggestions contextuelles -->
+          <div class="chat-suggestions" id="chat-suggestions">
+            <!-- Rempli dynamiquement selon le poste de l'employé -->
+          </div>
+
+          <!-- Barre de saisie -->
+          <form id="chat-form" class="chat-input-bar">
+            <!-- Bouton Microphone (Reconnaissance Vocale STT) -->
+            <button type="button" id="btn-mic" class="btn-mic" title="Poser une question à la voix">
+              <span>🎙️</span>
+            </button>
+
+            <input type="text" id="chat-input" class="chat-input" placeholder="Posez votre question au formateur..." autocomplete="off" required>
+
+            <button type="submit" id="btn-send" class="btn-send">
+              <span>Envoyer</span>
+              <span>➔</span>
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Script Principal de l'Application -->
+  <script src="/static/app.js"></script>
+</body>
+</html>
